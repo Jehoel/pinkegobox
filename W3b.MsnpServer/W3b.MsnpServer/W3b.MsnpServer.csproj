@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C7C4D86-44DF-4141-B4E5-18E15B00EC35}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>W3b.MsnpServer</RootNamespace>
+    <AssemblyName>W3b.MsnpServer</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.65.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Infrastructure\AuthenticationService.cs" />
+    <Compile Include="Infrastructure\Server.cs" />
+    <Compile Include="Infrastructure\User.cs" />
+    <Compile Include="Core\Command.cs" />
+    <Compile Include="Core\CommandParser.cs" />
+    <Compile Include="Protocol\Cvr0DispatchProtocol.cs" />
+    <Compile Include="Protocol\Msnp2Common.cs" />
+    <Compile Include="Protocol\Msnp2NotificationProtocol.cs" />
+    <Compile Include="Protocol\Msnp2SwitchboardProtocol.cs" />
+    <Compile Include="Protocol\Protocol.cs" />
+    <Compile Include="Protocol\Enums and Exceptions.cs" />
+    <Compile Include="Core\INotificationService.cs" />
+    <Compile Include="Core\MsnpServer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Core\DispatchServer.cs" />
+    <Compile Include="Core\NotificationServer.cs" />
+    <Compile Include="Core\SwitchboardServer.cs" />
+    <Compile Include="Protocol\Msnp2DispatchProtocol.cs" />
+    <Compile Include="Utility\UtilityMethods.cs" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="Utility\MessengerEventKiller.cs" />
+    <None Include="Utility\HostFile-Old.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

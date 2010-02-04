@@ -1,0 +1,340 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="W3b.MsnpServer.Command" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAIAAAAAAQAEAIAQAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Core\Command.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.CommandParser" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAgAAAAAAAACAAEAAAQAAAAAAAAAAAAAIAAAAAAAEA=</HashCode>
+      <FileName>Core\CommandParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.DispatchConnection" Collapsed="true">
+    <Position X="10.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Core\DispatchServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.AuthDetails" Collapsed="true">
+    <Position X="8.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\DispatchServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.DispatchServer" Collapsed="true">
+    <Position X="5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAkAAAAAAAAAAAAAAQAABAAAAAAABAAQAACAAAAAAA=</HashCode>
+      <FileName>Core\DispatchServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.MsnpServer&lt;TConnection&gt;" Collapsed="true">
+    <Position X="2.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAQIAAAAEAAAAAgEAAABAAAAgAQBAAAABAAQBAAAA=</HashCode>
+      <FileName>Core\MsnpServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.NotificationConnection" Collapsed="true">
+    <Position X="13" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\NotificationServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.NotificationServer" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AZAkAAAAAAAAAAAIAAQQQBACAAAEABAAQAACAAAAgAA=</HashCode>
+      <FileName>Core\NotificationServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.SwitchboardConnection" Collapsed="true">
+    <Position X="8.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\SwitchboardServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.SwitchboardSession" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAQAAAAAAAAAAAAAAAQAEAAAAiAAEAA=</HashCode>
+      <FileName>Core\SwitchboardServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.SwitchboardServer" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCEAAAAAAAAgBAAAAAIEBAAAAAAABAgQAAggEAAgAA=</HashCode>
+      <FileName>Core\SwitchboardServer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Extensions" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAgAAAAAQABMAAAAIAAAAAAIAAAACACCAAAUAgA=</HashCode>
+      <FileName>Extensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.AuthenticationService" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\AuthenticationService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Server" Collapsed="true">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAACAAQgAIAAAAABQAAQBAAFAEIAAAABAABAA=</HashCode>
+      <FileName>Infrastructure\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.ClientConnection" Collapsed="true">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAABAAAAAAQAAAAAAAAAAUAA=</HashCode>
+      <FileName>Infrastructure\Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.User" Collapsed="true">
+    <Position X="20.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIgAAAEAQABAQAAAAAAAAIAAAAQAIACEBIQAAACAAA=</HashCode>
+      <FileName>Infrastructure\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.UserProperties" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAQIAAAAAAABAAQIAAAAABAAAAIAACAAgAEAAAA=</HashCode>
+      <FileName>Infrastructure\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.UserList" Collapsed="true">
+    <Position X="22.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAQAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.PermissionList" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.UserListEntry" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.UserProfile" Collapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAIAAAAAAAAAAIAAAAAAAAABAAAAAg=</HashCode>
+      <FileName>Infrastructure\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Enumerations" Collapsed="true">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAABAAAACAAEAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Protocol\Enums and Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.ProtocolException" Collapsed="true">
+    <Position X="3.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Protocol\Enums and Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.SyntaxException" Collapsed="true">
+    <Position X="3.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Protocol\Enums and Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.UtilityMethods" Collapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASgAAAIAAAIAAAABECAAAAAAQAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Utility\UtilityMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Runtime.CompilerServices.ExtensionAttribute" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Cvr0DispatchVerbs" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAACAEAAAA=</HashCode>
+      <FileName>Protocol\Cvr0DispatchProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Cvr0DispatchProtocol" Collapsed="true">
+    <Position X="0.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Protocol\Cvr0DispatchProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Msnp2Common" Collapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Protocol\Msnp2Common.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Msnp2DispatchVerbs" Collapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAQAAAAAAAAIAAAAAAAAAAAAAAEAAgAAAAACAEAACA=</HashCode>
+      <FileName>Protocol\Msnp2DispatchProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Md5AuthDetails" Collapsed="true">
+    <Position X="8.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Protocol\Msnp2DispatchProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Msnp2DispatchProtocol" Collapsed="true">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAABAEAAAAAAAAACgAAAAQAAAAAA=</HashCode>
+      <FileName>Protocol\Msnp2DispatchProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Msnp2NotificationVerbs" Collapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIQAAAAAEAAIgAAAAAAAAAAAAAEAggAiBEBCAEABCA=</HashCode>
+      <FileName>Protocol\Msnp2NotificationProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Msnp2NotificationProtocol" Collapsed="true">
+    <Position X="2.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAQoBAAAABAAAAAAAQBABCgAAAQQAACgAA=</HashCode>
+      <FileName>Protocol\Msnp2NotificationProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Msnp2SwitchboardVerbs" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YAAAAAAAAIQAIAAAAAAAAAAAAAAGBACAAAAAAAAAAEA=</HashCode>
+      <FileName>Protocol\Msnp2SwitchboardProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Msnp2SwitchboardProtocol" Collapsed="true">
+    <Position X="5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Protocol\Msnp2SwitchboardProtocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.Protocol&lt;TConnection&gt;" Collapsed="true">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAACAQAAAAAAAAAA=</HashCode>
+      <FileName>Protocol\Protocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.DispatchProtocol" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Protocol\Protocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.NotificationProtocol" Collapsed="true">
+    <Position X="2.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Protocol\Protocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="W3b.MsnpServer.Protocol.SwitchboardProtocol" Collapsed="true">
+    <Position X="5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Protocol\Protocol.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="W3b.MsnpServer.Msnp2.INotificationService" Collapsed="true">
+    <Position X="17.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\INotificationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="W3b.MsnpServer.Msnp2.IDispatchService" Collapsed="true">
+    <Position X="15.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\INotificationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="W3b.MsnpServer.Msnp2.ISwitchboardService" Collapsed="true">
+    <Position X="19" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Core\INotificationService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="W3b.MsnpServer.AuthenticationResult" Collapsed="true">
+    <Position X="17.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACBAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\AuthenticationService.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="W3b.MsnpServer.AllowSetting" Collapsed="true">
+    <Position X="15.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\User.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="W3b.MsnpServer.Error" Collapsed="true">
+    <Position X="19" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAgCCgBAIgCUACIAAABEGBAQABDIRAEQBQABAAAM=</HashCode>
+      <FileName>Protocol\Enums and Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="W3b.MsnpServer.Status" Collapsed="true">
+    <Position X="22.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAGAAAAAAAAAAAAAAAAAAAAAAAACABEAAFBAAAAAAA=</HashCode>
+      <FileName>Protocol\Enums and Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="W3b.MsnpServer.OutReason" Collapsed="true">
+    <Position X="20.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Protocol\Enums and Exceptions.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>
