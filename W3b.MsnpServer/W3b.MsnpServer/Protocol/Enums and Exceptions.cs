@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using S = System.Runtime.Serialization;
 
 namespace W3b.MsnpServer {

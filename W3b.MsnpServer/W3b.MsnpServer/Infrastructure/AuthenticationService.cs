@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 using System.Security.Cryptography;
-using System.Collections.ObjectModel;
 
 namespace W3b.MsnpServer {
 	

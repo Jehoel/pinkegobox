@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Net;
-using System.Net.Sockets;
-using System.Collections.Generic;
 
 namespace W3b.MsnpServer {
 	

@@ -1,13 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Text;
-
-using System.Data;
 using System.Data.SQLite;
-
-using W3b.MsnpServer.Msnp2;
-using System.Collections.ObjectModel;
 
 namespace W3b.MsnpServer {
 	

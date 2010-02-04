@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Verb = W3b.MsnpServer.Protocol.Msnp2DispatchVerbs;
 

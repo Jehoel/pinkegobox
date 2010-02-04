@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net.Sockets;
 
 using W3b.MsnpServer.Protocol;
-using Verb = W3b.MsnpServer.Protocol.Msnp2SwitchboardVerbs;
 
 namespace W3b.MsnpServer {
 	

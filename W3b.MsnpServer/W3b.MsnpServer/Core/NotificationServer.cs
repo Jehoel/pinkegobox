@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Net.Sockets;
-using System.Net;
 using W3b.MsnpServer.Protocol;
 
 using Verb = W3b.MsnpServer.Protocol.Msnp2NotificationVerbs;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 
-using W3b.MsnpServer;
 
 namespace W3b.MsnpServer.ConsoleHost {
 	
@@ -60,7 +59,7 @@ namespace W3b.MsnpServer.ConsoleHost {
     \ \_\  \ \_\ \_\ \_\ \_\ \_\   \ \____/ \____ \ \____/    \ \____/ \____//\_/\_\
      \/_/   \/_/\/_/\/_/\/_/\/_/    \/___/ \/___L\ \/___/      \/___/ \/___/ \//\/_/
                                             /\____/                                
-                                            \/___/                                 ";
+                                            \/___/   Release 1                     ";
 					
 				} else if( Console.WindowWidth >= 67 ) {
 					
@@ -71,7 +70,7 @@ namespace W3b.MsnpServer.ConsoleHost {
 |  ____/ |  _ \| |_/ )  |  ___) / _  |/ _ \   |  __  ( / _ ( \ / )
 | |    | | | | |  _ (   | |____( (_| | |_| |  | |__)  ) |_| ) X ( 
 |_|    |_|_| |_|_| \_)  |_______)___ |\___/   |______/ \___(_/ \_)
-                               (_____|                            ";
+                               (_____|    Release 1            ";
 					
 				} else {
 					
@@ -80,7 +79,7 @@ namespace W3b.MsnpServer.ConsoleHost {
 | _ (_)_ _ | |__ | __|__ _ ___  | _ ) _____ __
 |  _/ | ' \| / / | _|/ _` / _ \ | _ \/ _ \ \ /
 |_| |_|_||_|_\_\ |___\__, \___/ |___/\___/_\_\
-                     |___/                    ";
+                     |___/   Release 1        ";
 					
 				}
 			}
