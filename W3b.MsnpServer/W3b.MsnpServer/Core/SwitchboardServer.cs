@@ -21,16 +21,28 @@ namespace W3b.MsnpServer {
 		
 		private static Int32 _counter = 1;
 		
-		public SwitchboardInvitation() {
+		public SwitchboardInvitation(SwitchboardSession session, User user) {
 			
-			Id  = _counter++;
-			Key = AuthenticationService.CreateChallengeString();
+			Session = session;
+			Id   = _counter++;
+			User = user;
+			Key  = AuthenticationService.CreateChallengeString();
 		}
 		
+		public SwitchboardSession Session { get; private set; }
+		
 		public Int32  Id       { get; private set; }
-		public String Protocol { get; private set; }
+		public String Protocol { get; set; }
 		public User   User     { get; private set; }
 		public String Key      { get; private set; }
+		
+		public bool   Rsvp     { get; private set; }
+		
+		public void SetRsvp() {
+			if( Protocol == null ) throw new InvalidOperationException("Cannot mark an invitation as accepted if the protocol name has not been set.");
+			Rsvp = true;
+		}
+		
 	}
 	
 	public class SwitchboardSession {
@@ -47,11 +59,18 @@ namespace W3b.MsnpServer {
 			Id          = _counter++;
 		}
 		
+		public SwitchboardInvitation CreateInvitation(User invitee) {
+			
+			SwitchboardInvitation invite = new SwitchboardInvitation( this, invitee );
+			Invitations.Add( invite );
+			
+			return invite;
+		}
+		
 		public Int32                       Id          { get; private set; }
 		public List<SwitchboardInvitation> Invitations { get; private set; }
 		public List<SwitchboardConnection> Connections { get; private set; }
 		public DateTime                    Created     { get; private set; }
-		public String                      Key         { get; private set; }
 		public User                        Creator     { get; private set; }
 		public SwitchboardServer           Server      { get; private set; }
 		
@@ -65,9 +84,12 @@ namespace W3b.MsnpServer {
 		}
 		
 		
-		private List<SwitchboardSession> _sessions = new List<SwitchboardSession>();
+		private List<SwitchboardSession>  _sessions  = new List<SwitchboardSession>();
+		private BaseSwitchboardProtocol _base;
 		
 		private SwitchboardServer() : base("SB", ConsoleColor.Red, 1865) {
+			
+			_base = new BaseSwitchboardProtocol(this);
 		}
 		
 		protected override ClientConnection CreateClientConnection(int bufferLength, Socket socket) {
@@ -80,7 +102,19 @@ namespace W3b.MsnpServer {
 			Command cmd = GetCommand(c);
 			if( cmd == null ) return;
 			
+			// only way to determine protocol level is by handling USR and ANS verbs
+			// rather than do what DS and NS do by handling VER themselves, use BaseSwitchboardProtocol which sets the connection's protocol instance
 			
+			if( c.Protocol == null ) {
+				
+				_base.HandleCommand( c, cmd );
+				
+				if( c.Protocol == null ) throw new ProtocolException("Could not authenticate SwitchboardSession and match protocol version");
+				
+			} else {
+				
+				c.Protocol.HandleCommand( c, cmd );
+			}
 			
 		}
 		
@@ -91,34 +125,34 @@ namespace W3b.MsnpServer {
 			return session;
 		}
 		
-		public SwitchboardSession GetSessionByIdAndKey(Int32 id, String key) {
+		public SwitchboardInvitation GetInvitationByUserAndKey(User user, String key) {
 			
 			foreach(SwitchboardSession session in _sessions) {
 				
-				if( session.Id == id && session.Key == key ) return session;
+				foreach(SwitchboardInvitation invite in session.Invitations) {
+					
+					if( invite.User == user && invite.Key.Equals(key, StringComparison.OrdinalIgnoreCase)  ) return invite;
+				}
 			}
-			
 			return null;
 		}
 		
-		/// <summary>Returns a session created by the specified user (i.e. an unbound session). To get a bounded session, query SwitchboardConnection's Session property.</summary>
-		public SwitchboardSession GetSessionByCreator(User creator, String key) {
+		public SwitchboardInvitation GetInvitationByUserKeyAndId(User user, String key, int sessionId) {
 			
-			foreach(SwitchboardSession session in _sessions) {
-				
-				if( session.Creator == creator && session.Key == key ) return session;
-			}
-			
-			return null;
+			// meh
+			SwitchboardInvitation invite = GetInvitationByUserAndKey( user, key );
+			return invite.Session.Id == sessionId ? invite : null;
 		}
 		
-		public bool BroadcastCommand(SwitchboardSession session, Command cmd) {
+		public bool BroadcastCommand(SwitchboardSession session, Command cmd, SwitchboardConnection ignore) {
 			
 			if( cmd.TrId != -1 && cmd.TrId != 0 ) throw new ProtocolException("Only Asynchronous server commands can be sent.");
 			
 			foreach(SwitchboardConnection conn in session.Connections) {
 				
-				Send( conn, cmd );
+				if( conn != ignore )
+					Send( conn, cmd );
+				
 			}
 			
 			return true;

@@ -47,10 +47,13 @@
     <Compile Include="Infrastructure\User.cs" />
     <Compile Include="Core\Command.cs" />
     <Compile Include="Core\CommandParser.cs" />
+    <Compile Include="Protocol\BaseSwitchboardProtocol.cs" />
     <Compile Include="Protocol\Cvr0DispatchProtocol.cs" />
     <Compile Include="Protocol\Msnp2Common.cs" />
     <Compile Include="Protocol\Msnp2NotificationProtocol.cs" />
     <Compile Include="Protocol\Msnp2SwitchboardProtocol.cs" />
+    <Compile Include="Protocol\Msnp3DispatchProtocol.cs" />
+    <Compile Include="Protocol\Msnp3NotificationProtocol.cs" />
     <Compile Include="Protocol\Protocol.cs" />
     <Compile Include="Protocol\Enums and Exceptions.cs" />
     <Compile Include="Core\MsnpServer.cs" />

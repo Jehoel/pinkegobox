@@ -1,0 +1,23 @@
+Both users have a GTC/BLP (whatever) which allows anyone to view their status if they aren't explicitly blocked
+
+TestUser  = Alice
+BillGates = Bob
+
+Alice adds Bob to her ForwardList
+So the server notifies Bob (since Alice is now on his RL)
+Alice also immediately adds Bob to her AllowList (as you do when adding people as a contact)
+
+----------------
+
+Bob receives a notification that Alice added her, he clicks Allow+Add then OK
+Alice receives a notification that Bob is now on her RL
+
+// for some reason, Bob sends two ADD AL testuser@hotmail.com requests
+//	with the exception of the trid, it's identical; even the customName (which is set to FriendlyName)
+
+ignoring the duplicate ADD AL testuser@hotmail.com that Bob sends, Alice receives NLN that Bob is online
+	but Bob does not receive an NLN for Alice
+...until Alice changes her status
+
+BTW, NLN does not seem to be the right way to notify a rename
+According to NotificationServer.java, line 861 it is REA, I guess I was using the wrong syntax

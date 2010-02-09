@@ -223,7 +223,7 @@ namespace W3b.MsnpServer {
 			return null;
 		}
 		
-		public static bool IsOnline(this Status status) {
+		public static bool AppearOnline(this Status status) {
 			// TODO: problem: this also includes HDN state as being Offline, when it isn't
 			// I'll need to revisit this method in future to ensure the right condition (include "appear offline") is met
 			return ((int)status & 1) == 1;

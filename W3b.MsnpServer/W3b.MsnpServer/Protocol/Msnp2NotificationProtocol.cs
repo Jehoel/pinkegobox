@@ -50,6 +50,9 @@ namespace W3b.MsnpServer.Protocol {
 		public Msnp2NotificationProtocol(NotificationServer server) : base("MSNP2", 2, server) {
 		}
 		
+		protected Msnp2NotificationProtocol(String name, int pref, NotificationServer server) : base(name, pref, server) {
+		}
+		
 		public override void HandleCommand(NotificationConnection c, Command cmd) {
 			
 			switch(cmd.Verb) {
@@ -356,53 +359,27 @@ namespace W3b.MsnpServer.Protocol {
 			String listName   = cmd.Params[0];
 			String userHandle = cmd.Params[1];
 			
-			UserProperties prop = c.User.Properties;
-			User       me   = c.User;
-			UserListEntry  target;
+			User owner  = c.User;
+			User target = User.GetUser( userHandle );
+			if( target == null ) {
+				
+				Command errorDoesntExist = new Command(Error.InvalidUser, cmd.TrId);
+				Server.Send( c, errorDoesntExist );
+				return;
+			}
 			
-			bool listHasUser = false;
-			
-/*			switch(listName) {
+			switch(listName) {
 				case "FL":
-					
-					UserListEntry entry = prop.ForwardList.Find( e => e.User.UserHandle == userHandle );
-					if( listHasUser = (entry != null) ) {
-						
-						prop.ForwardList.Remove( entry );
-						prop.Serial++;
-						
-						UserProperties targetProp = entry.User.Properties;
-//						targetProp.ReverseList.Remove( me );
-						targetProp.Serial++;
-					}
-					
-					break;
-					
+				case "RL":
 				case "AL":
-					
-					target = prop.VirtualAllowList.Find( e => e.User.UserHandle == userHandle );
-					if( listHasUser = (target != null) ) {
-						
-						prop.PermissList.Remove( target );
-						prop.Serial++;
-					}
-					
-					break;
-					
 				case "BL":
 					
-					target = prop.VirtualBlockList.Find( e => e.User.UserHandle == userHandle );
-					if( listHasUser = (target != null) ) {
-						
-						prop.PermissList.Remove( target );
-						prop.Serial++;
-					}
+					Server.RemoveFromList( owner, listName, target );
 					
-					// TODO: Depending on the BLP setting, send an ILN if the user is online
-					// gah, this is complicated!
+					Command response = new Command(Verb.Rem, cmd.TrId, listName, owner.Properties.Serial.ToStringInvariant(), userHandle);
+					Server.Send( c, response );
 					
 					break;
-					
 				default:
 					
 					Command errorSyntax = new Command(Error.SyntaxError, cmd.TrId);
@@ -410,18 +387,6 @@ namespace W3b.MsnpServer.Protocol {
 					return;
 			}
 			
-			if( listHasUser ) {
-				
-				Command response = new Command(Verb.Add, cmd.TrId, listName, prop.Serial.ToStringInvariant(), userHandle);
-				Server.Send( c, response );
-				
-			} else {
-				
-				Command errorDoesntExist = new Command(Error.InvalidUser, cmd.TrId);
-				Server.Send( c, errorDoesntExist );
-				
-			}
-			*/
 		}
 		
 		protected virtual void HandleXfr(NotificationConnection c, Command cmd) {
@@ -441,7 +406,10 @@ namespace W3b.MsnpServer.Protocol {
 			SwitchboardServer sb = SwitchboardServer.Instance;
 			SwitchboardSession session = sb.CreateSession( c.User );
 			
-			Command xfrResponse = new Command(Verb.Xfr, cmd.TrId, "SB", sb.GetEndPointForClient( c.Socket.LocalEndPoint ).ToString(), "CKI", session.Key);
+			SwitchboardInvitation invite = session.CreateInvitation( c.User );
+			invite.Protocol = c.Protocol.Name;
+			
+			Command xfrResponse = new Command(Verb.Xfr, cmd.TrId, "SB", sb.GetEndPointForClient( c.Socket.LocalEndPoint ).ToString(), "CKI", invite.Key );
 			Server.Send( c, xfrResponse );
 			
 		}
@@ -576,7 +544,7 @@ namespace W3b.MsnpServer.Protocol {
 			Dictionary<String,String> urls = new Dictionary<string,string>() {
 				{"INBOX"     , "http://www.hotmail.com" }, // Email Inbox       - MSNP2
 				{"COMPOSE"   , "mailto:{1}" },             // Send email        - MSNP2
-				{"COMPOSE"   , "mailto:{1}" },             // Send email to {0} - MSNP2
+//				{"COMPOSE"   , "mailto:{1}" },             // Send email to {0} - MSNP2
 				{"MOBILE"    , "http://{1}" },             // MSN Mobile        - MSNP4
 				{"PROFILE"   , "http://{1}" },             // MSN Profile       - MSNP4
 				{"N2PACCOUNT", "http://{1}" },             // Net2Phone Account - MSNP4
@@ -665,7 +633,7 @@ namespace W3b.MsnpServer.Protocol {
 			Server.Send( c, iln );
 		}
 		
-		/// <summary>Sends an NLN to the specified connection, this NLN shows the current state of 'u' user's connection</summary>
+		/// <summary>Sends an NLN to the specified connection, this NLN shows the current state of <param name="user"/>'s connection</summary>
 		protected virtual void SendNln(NotificationConnection c, User user) {
 			
 			// now online:    <<< NLN Substate UserHandle FriendlyName
@@ -673,6 +641,7 @@ namespace W3b.MsnpServer.Protocol {
 			// now offline:   <<< FLN UserHandle
 			
 			// I don't understand ILN just yet, so I'll just implement NLN and FLN
+			// UPDATE: ILN is sent only when logging on or when adding someone to your FL (and you're allowed to see them)
 			
 			if( (user.Status & Status.Nln) == Status.Nln ) {
 				
@@ -723,20 +692,18 @@ namespace W3b.MsnpServer.Protocol {
 			SendNln( recipient, flnUser );
 		}
 		
-		public override void ASNotifyRng(UserListEntry caller, NotificationConnection recipient, SwitchboardSession session) {
+		public override void ASNotifyRng(UserListEntry caller, NotificationConnection recipient, SwitchboardInvitation invitation) {
 			
-			// S: RNG <SessionID> <SwitchboardServerAddress> <SP> <AuthChallengeInfo> <CallingUserHandle> <CallingUserFriendlyName>
+			// <<< RNG <SessionID> <SwitchboardServerAddress> <SP> <AuthChallengeInfo> <CallingUserHandle> <CallingUserFriendlyName>
 			
-			// NOTE: Potential security weaknesses:
-			// * The key is not unique to the user's RNG
-			// * The SB server is not keeping track of RNG invites
-			// * So anyone could send an ANS to the SB server and get invited into a session they weren't actually invited to if they had the key
-			// but seeming as this isn't production code, meh :)
+			invitation.Protocol = this.Name; // note this property's value is appropriate for the current protocol subclass
+			
+			SwitchboardSession session = invitation.Session;
 			
 			String sessionId = session.Id.ToStringInvariant();
 			String sbAddr = session.Server.GetEndPointForClient( recipient.Socket.LocalEndPoint ).ToString();
 			
-			Command rng = new Command(Verb.Rng, -1, sessionId, sbAddr, "CKI", session.Key, caller.User.UserHandle, caller.CustomName);
+			Command rng = new Command(Verb.Rng, -1, sessionId, sbAddr, "CKI", invitation.Key, caller.User.UserHandle, caller.CustomName);
 			Server.Send( recipient, rng ); // I assume this won't be null for small-scale stuff
 		}
 		
@@ -753,12 +720,12 @@ namespace W3b.MsnpServer.Protocol {
 			Server.Send( recipient, add );
 		}
 		
-		public override void ASNotifyRemRL(NotificationConnection recipient, UserListEntry removedRLEntry) {
+		public override void ASNotifyRemRL(NotificationConnection recipient, String removedRLEntryUserHandle) {
 			
 			// <<< REM 0 RL <serial> <userHandle>
 			
 			String serial = recipient.User.Properties.Serial.ToStringInvariant();
-			String userHandle = removedRLEntry.User.UserHandle;
+			String userHandle = removedRLEntryUserHandle;
 			
 			Command rem = new Command(Verb.Rem, 0, "RL", serial, userHandle);
 			Server.Send( recipient, rem );
@@ -769,8 +736,10 @@ namespace W3b.MsnpServer.Protocol {
 			// I wondered if it was an async REA command sent to the client
 			// but I'll try an NLN
 			
-			Command rea = new Command(Verb.Rea, 0, changedName.UserHandle, changedName.FriendlyName);;
-			Server.Send( recipient, rea );
+			//Command rea = new Command(Verb.Rea, 0, changedName.UserHandle, changedName.FriendlyName);;
+			//Server.Send( recipient, rea );
+			
+			SendNln( recipient, changedName );
 		}
 		
 	#endregion

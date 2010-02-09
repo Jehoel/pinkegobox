@@ -38,6 +38,9 @@ namespace W3b.MsnpServer.Protocol {
 		public Msnp2DispatchProtocol(DispatchServer server) : base("MSNP2", 2, server) {
 		}
 		
+		protected Msnp2DispatchProtocol(String name, int pref, DispatchServer server) : base(name, pref, server) {
+		}
+		
 		public override void HandleCommand(DispatchConnection c, Command cmd) {
 			
 			switch(cmd.Verb) {

@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>MSN Messenger Protocol - Notification - Miscellaneous</title>
+	<link rel="stylesheet" href="../default.css" type="text/css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="description" content="An unofficial overview of the MSN Messenger protocol." />
+	<meta name="keywords" content="MSN Messenger Protocol, MSN Messenger, MSN, Protocol, IM, Messenger, Mike Mintz" />
+	<meta name="author" content="Mike Mintz (Michael David Mintz)" />
+</head>
+
+<body bgcolor="#FFFFFF">
+
+<br />
+
+<table cellpadding="0" cellspacing="10" width="100%" border="0" align="center" bgcolor="#FFFFFF">
+
+<tr valign="top"><td colspan="2">
+
+<div style="padding: 5pt; margin-left: 10pt; margin-right: 10pt; border-bottom: #AAAAFF solid 1pt" align="right"><font color="#444488"><i>Since March 10, 2003</i> - <b> Version 2</b></font></div>
+<div style="padding: 5pt; margin-left: 10pt; margin-right: 10pt; border-top: #CCCCFF solid 1pt" align="right"><a href="http://www.hypothetic.org/"><small><b>hypothetic.org</b></small></a></div>
+
+<h1>MSN Messenger Protocol</h1>
+
+</td></tr>
+
+<tr valign="top">
+
+	<td>
+		<table border="0" cellpadding="0" cellspacing="1" width="200" bgcolor="#FFFFFF">
+
+		<tr><td>
+			<table border="0" cellpadding="8" cellspacing="5" bgcolor="#000000" width="100%"><tr valign="middle"><td align="center" bgcolor="#FFFFFF">
+				<a href="../index.php"><big><b><font style="letter-spacing: 2px">Home Page</font></b></big></a>
+			</td></tr></table>
+			<br />
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="4" cellspacing="3" bgcolor="#CCAAFF" width="100%"><tr valign="middle"><td align="center" bgcolor="#FFFFFF">
+				<a href="http://www.hypothetic.org/docs/msn/phorum/"><b><font style="letter-spacing: 1px">Forum</font></b></a>
+			</td></tr><tr valign="middle"><td align="center" bgcolor="#FFFFFF">
+				<a href="../chat.php"><b><font style="letter-spacing: 1px">Chat</font></b></a>
+			</td></tr></table>
+			<br />
+		</td></tr>
+		
+		<tr><td>
+			<table border="0" cellpadding="4" cellspacing="3" bgcolor="#AACCFF" width="100%"><tr valign="middle"><td align="center" bgcolor="#FFFFFF">
+				<a href="../about.php"><b><font style="letter-spacing: 1px">About</font></b></a>
+			</td></tr></table>
+			<br />
+		</td></tr>
+				
+		<tr><td>
+		<table border="0" cellpadding="0" cellspacing="1" width="100%" bgcolor="#000000">
+		<tr><td>
+			<table border="0" cellpadding="0" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="center" bgcolor="#EEEEEE" height="30">
+				<big><b>Resources</b></big>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#FBFBFB" width="100%"><tr valign="top"><td>
+				<div class="menuitem"><b>&middot;</b> <a href="../resources/faq.php">FAQ</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../resources/unofficial_protocol.php">Unofficial Protocol</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../resources/projects.php">Projects</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../resources/links.php">Links</a></div>
+			</td></tr></table>
+		</td></tr>
+
+		</table>
+		<br />
+		</td></tr>
+
+		<tr><td>
+		<table border="0" cellpadding="0" cellspacing="1" width="100%" bgcolor="#000000">
+		<tr><td>
+			<table border="0" cellpadding="0" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="center" bgcolor="#EEEEEE" height="30">
+				<big><b>Research</b></big>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#FBFBFB" width="100%"><tr valign="top"><td>
+				<div class="menuitem"><b>&middot;</b> <a href="../research/research_practice.php">Research Practice</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../research/msnp8.php">MSNP8</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../research/msnp9.php">MSNP9</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../research/msnp10.php">MSNP10</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../research/client_ID.php">Client ID structure</a></div>
+			</td></tr></table>
+		</td></tr>
+
+		</table>
+		<br />
+		</td></tr>
+
+		<tr><td>
+		<table border="0" cellpadding="0" cellspacing="1" width="100%" bgcolor="#000000">
+
+		<tr><td>
+			<table border="0" cellpadding="0" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="center" bgcolor="#EEEEEE" height="30">
+				<big><b>Documentation</b></big>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="1" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="left" bgcolor="#FFFAEF" height="20">
+				&nbsp;<b>General</b>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#FFFDF8" width="100%"><tr valign="top"><td>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/overview.php">Overview</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/glossary.php">Glossary</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/connections.php">Connections</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/http_connections.php">HTTP Connections</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/commands.php">Commands</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/payload_commands.php">Payload Commands</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/names.php">Names</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../general/md5.php">MD5</a></div>
+			</td></tr></table>
+		</td></tr>
+
+
+		<tr><td>
+			<table border="0" cellpadding="1" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="left" bgcolor="#EFFFEF" height="20">
+				&nbsp;<b>Notification</b>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#F8FFF8" width="100%"><tr valign="top"><td>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/authentication.php">Authentication</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/statuses.php">Statuses</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/pings_challenges.php">Pings / Challenges</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/contact_lists.php">Contact Lists</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/users_groups.php">Users / Groups</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/messages.php">Messages</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/miscellaneous.php">Miscellaneous</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../notification/example_session.php">Example Session</a></div>
+			</td></tr></table>
+		</td></tr>
+		
+		<tr><td>
+			<table border="0" cellpadding="1" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="left" bgcolor="#FFEFEF" height="20">
+				&nbsp;<b>Switchboard</b>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#FFF8F8" width="100%"><tr valign="top"><td>
+				<div class="menuitem"><b>&middot;</b> <a href="../switchboard/authentication.php">Authentication</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../switchboard/participants.php">Participants</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../switchboard/messages.php">Messages</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../switchboard/plaintext.php">Plaintext</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../switchboard/invitations.php">Invitations</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../switchboard/example_session.php">Example Session</a></div>
+			</td></tr></table>
+		</td></tr>
+		
+		<tr><td>
+			<table border="0" cellpadding="1" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="left" bgcolor="#FAEFFF" height="20">
+				&nbsp;<b>Protocols</b>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#FCF8FF" width="100%"><tr valign="top"><td>
+				<div class="menuitem"><b>&middot;</b> <a href="../protocols/invitations.php">Invitations</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../protocols/file_transfer.php">File Transfer</a></div>
+			</td></tr></table>
+		</td></tr>
+				
+		<tr><td>
+			<table border="0" cellpadding="1" cellspacing="1" bgcolor="#000000" width="100%"><tr valign="middle"><td align="left" bgcolor="#EFFAFF" height="20">
+				&nbsp;<b>Reference</b>
+			</td></tr></table>
+		</td></tr>
+
+		<tr><td>
+			<table border="0" cellpadding="2" cellspacing="0" bgcolor="#F8FCFF" width="100%"><tr valign="top"><td>
+				<div class="menuitem"><b>&middot;</b> <a href="../reference/original_draft.php">Original Draft</a></div>
+				<div class="menuitem"><b>&middot;</b> <a href="../reference/error_list.php">Error List</a></div>
+			</td></tr></table>
+		</td></tr>
+
+		</table>
+		
+		</td></tr>
+		
+		<tr><td align="center">
+			<br />
+			<!--<a href="http://validator.w3.org/check/referer"><small>Validate XHTML</small></a>-->
+			<a href="http://validator.w3.org/check?uri="><small>Validate XHTML</small></a>
+			<br />
+			<!--<a href="http://jigsaw.w3.org/css-validator/check/referer"><small>Validate CSS</small></a>-->
+			<a href="http://jigsaw.w3.org/css-validator/validator?uri="><small>Validate CSS</small></a>
+			<br />
+	  	</td></tr>
+		
+		</table>
+
+	</td>
+
+	<td width="100%">
+
+<table border="0" cellpadding="3" cellspacing="0" bgcolor="#AAAAAA" width="100%"><tr valign="middle">
+<td align="center" bgcolor="#FFFFFF" width="100%">
+	<font color="#663399" style="letter-spacing: 2px" size="+2"><b>Notification - Miscellaneous</b></font>
+</td>
+<td align="center" bgcolor="#EEEEEE">
+<div><b>Printable&nbsp;Version</b></div>
+<div><a href="/docs/msn/sitev2.0/notification/miscellaneous.php?printable=color">Color</a> / <a href="/docs/msn/sitev2.0/notification/miscellaneous.php?printable=gray">Grayscale</a></div>
+</td>
+</tr></table>
+
+<h2>Cosnumer Versioning (CVR)<a name="cvr"></a></h2>
+
+	<p>The <code>CVR</code> command sends version information about a client and operating system to the server. For the official client, the server will reply with information about a recommended version of the client (which may be the same as the current version).</p>
+	<p>The <code>CVR</code> command is optional in protocol versions up to and including MSNP7. It's debatable whether third-party clients should send <code>CVR</code>. On one hand, Microsoft might start blocking users based on this command. On the other hand, they might treat third-party clients better if there was evidence that a significant number of people used them. On the one hand, there are serious privacy issues with the information given out. On the other hand, there's no way for Microsoft to verify the information given.</p>
+	<p>The <code>CVR</code> command includes information about the language you speak, the name and version of your client, and the name and version of your OS. You can send a <code>CVR</code> command to the NS at any time after you have finished logging in, but the official client always sends it immediately after sending the initial <code>CHG</code>. You can send <code>CVR</code> as many or as few times as you like. <code>CVR</code> has a TrID and 6 parameters in MSNP2 and MSNP3, or 7 parameters in MSNP5 and MSNP7.</p>
+
+<ul>
+	<li>The first parameter is hexadecimal number specifying your <a href="http://krafft.com/scripts/deluxe-calendar/lcid_chart.htm">locale ID</a> (e.g. "0x0409" For U.S. English).</li>
+	<li>The second parameter is your OS type (e.g. "win" for Windows).</li>
+	<li>The third parameter is your OS version (e.g. "4.10" for Windows 98).</li>
+	<li>The fourth parameter is the architecture of your computer (e.g. "i386" for Intel-comaptible PCs of type 386 or above).</li>
+	<li>The fifth parameter is your client name (e.g. "MSMSGS" for the official MSN Messenger client).</li>
+	<li>The sixth parameter is your client version (e.g. "1.0.0863" for the first version of the official client).</li>
+	<li>The seventh parameter is always "MSMSGS" in the official client. Your guess about what this means is as good as mine.</li>
+</ul>
+
+<p>Like with any other command, the server will reply to a <code>CVR</code> command with a <code>CVR</code> reply. For some reason, though, the official client would be just as happy if you replaced <code>CVR</code> with <code>CVQ</code> in the reply. The reply command will contain 5 parameters:</p>
+
+	<ul>
+		<li>The first parameter is a recommended version of the client for you to use, or "1.0.0000" if your client information is not recognised.</li>
+		<li>The second parameter is identical to the first.</li>
+		<li>The third parameter is "1.0.0000".</li>
+		<li>The fourth parameter is a URL you can download the recommended version of the client from.</li>
+		<li>The fifth parameter is a URL the user can go to to get more information about the client.</li>
+	</ul>
+
+	<p>Here is the <code>CVR</code> information sent by version 3.6 of the official client.</p>
+
+	<p><code class="client">&gt;&gt;&gt; CVR 7 0x0409 win 4.10 i386 MSMSGS 3.6.0025 MSMSGS<code class="newline">\r\n</code></code></p>
+	<p><code class="server">&lt;&lt;&lt; CVR 7 4.6.0083 4.6.0083 1.0.0000 http://download.microsoft.com&#x200B;/download/msnmessenger/install/4.6/win98me/en-us/&#x200B;mmssetup.exe http://messenger.microsoft.com<code class="newline">\r\n</code></code></p>
+	<p><code class="client">&gt;&gt;&gt; CVR 8 0x0409 win 4.10 i386 MSGSTRST 3.6.0025 MSMSGS<code class="newline">\r\n</code></code></p>
+	<p><code class="server">&lt;&lt;&lt; CVR 8 1.0.0000 1.0.0000 1.0.0000 http://download.microsoft.com&#x200B;/download/msnmessenger/install/4.6/win98me/en-us/&#x200B;mmssetup.exe http://messenger.microsoft.com.<code class="newline">\r\n</code></code></p>
+
+
+<h2>Service URLs (URL)<a name="url"></a></h2>
+	<p>The <code>URL</code> command retrieves URLs relating to the various MSN services to be opened in an external or integrated browser. It takes one parameter, which can be multiple words. Note that the parameter is case-sensitive. The <code>0x...</code> does not symbolize a special character and is to be taken literally. The parameter must be one of the following:</p>
+	<ul>
+		<li><code>INBOX</code> - Hotmail inbox</li>
+		<li><code>FOLDERS</code> - Believed to be the Hotmail's "MSN home" URL.</li>
+		<li><code>COMPOSE</code> - Compose an email</li>
+		<li><code>COMPOSE example@passport.com</code> - Compose an email for example@passport.com</li>
+		<li><code>PROFILE 0x1409</code> - Edit your MSN member directory profile</li>
+		<li><code>CHGMOB</code> - Mobile settings (pager etc.)</li>
+		<li><code>PERSON 0x0409</code> - Member services, password, secret question, account info</li>
+		<li><code>CHAT 0x0409</code> - Chat rooms</li>
+	</ul>
+	<p>The server will respond with another <code>URL</code>. It always has three parameters: the first two are URLs and the third is an ID number. These parameters are used to determine how to direct the web browser. The first four items are explained in the <a href="../notification/messages.php#hotmail_login">notification server messages page</a>.</p>
+	<p>Below is an example of requesting the URL information for the Hotmail inbox:</p>
+	<p><code class="server">&gt;&gt;&gt; URL 15 INBOX<code class="newline">\r\n</code></code></p>
+	<p><code class="client">&lt;&lt;&lt; URL 15 /cgi-bin/HoTMaiL https://loginnet.passport.com/ppsecure/md5auth.srf?lc=1033 2<code class="newline">\r\n</code></code></p>
+	<p>The <code>URL</code> command does not give you the URL to view profiles of people in the <a href="http://members.msn.com">MSN Member List</a>. To do this, direct the web browser to <code>http://members.msn.com/default.msnw?mem=<font color="#AA00AA">ACCOUNTNAME</font></code> where <code><font color="#AA00AA">ACCOUNTNAME</font></code> is the account name of the user whose profile you want to view.</p>
+
+<h2>Sending an e-mail invitation</h2>
+
+	<p><b>Note: This command has not been well tested. If you have done any research on this command, please <a href="../about.php#contact">let us know</a>!</b></p>
+
+	<p>You can send an e-mail saying <i>"&lt;your-passport&gt; wants to talk to you!"</i> to a specified e-mail address with the <code>SND</code> command, which has a TrID and 4 parameters.</p>
+
+	<ul>
+		<li>The first parameter is the e-mail address you want to send the message to.</li>
+		<li>The second parameter is the <a href="http://krafft.com/scripts/deluxe-calendar/lcid_chart.htm">locale ID</a> of the language to send the message in.</li>
+		<li>The third and fourth parameters are "MSMSGS MSMSGS".</li>
+	</ul>
+
+	<p>If the message was sent successfully, the server will reply with an <code>SND</code> with a single parameter of <code>OK</code>. Here is an example.</p>
+
+	<p><code class="client">&gt;&gt;&gt; SND 22 alice@hotmail.com 0x409 MSMSGS MSMSGS<code class="newline">\r\n</code></code></p>
+	<p><code class="server">&lt;&lt;&lt; SND 22 OK<code class="newline">\r\n</code></code></p>
+
+	<p>If bob@hotmail.com sent this message, Alice would receive an e-mail saying <i>"bob@hotmail.com wants to talk to you!"</i>.</p>
+
+<h2>Searching For Users<a name="fnd"></a></h2>
+
+	<p>MSN Messenger used to include a search facility, but this has been superceded by the <a href="http://members.msn.com/">MSN Memeber Directory</a>.  The command used for this was <code>FND</code>.  Sending an <code>FND</code> command in any version of the MSN Messenger protocol will now cause you to receive a <code>502</code> error, and nothing more.</p>
+
+<!--
+	<p>You can try to find people on MSN with the <code>FND</code> command, though this has been largely superceded by the <a href="http://members.msn.com/">MSN Memeber Directory</a> in recent years. <code>FND</code> has a TrID and five parameters. For some reason, all of the parameters to FND have a "key=value" format, for example "fname=Mike" or "lname=Mintz".</p>
+
+	<ul>
+		<li>The first parameter is "fname=&lt;First name&gt;". If you set the value of fname to <code>*</code>, the server will return error <code>201</code>.</li>
+		<li>The second parameter is "lname=&lt;Last name&gt;". If you set the value of lname to <code>*</code>, the server will return error <code>201</code>.</li>
+		<li>The third parameter is "city=&lt;City&gt;". Only major US cities are allowed.</li>
+		<li>The fourth parameter is "state=&lt;U.S. state&gt;". This is a two-letter code for a US state.</li>
+		<li>The fifth parameter is "country=&lt;Country&gt;". This is the two letter <a href="http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/index.html">ISO country code</a>.</li>
+	</ul>
+
+	<p><code>city</code>, <code>state</code>, or <code>country</code> can be set to <code>*</code>, meaning "any". If you specify a country other than "US", you must set city and state to <code>*</code>, or you will be disconnected.</p>
+	<p>There is an (as yet unknown) maximum number of matches allowed on a query. If a search has more than the maximum number of matches, the server will return error <code>301</code>. Otherwise, it will return a series of matches, one per command. The matches have 6 arguments: an incrementing number, a total number, first name, last name, city, state, and country of an individual match. Here are some examples.</p>
+
+	<p><code class="client">&gt;&gt;&gt; FND 3 fname=Bill lname=Gates city=* state=* country=US<code class="newline">\r\n</code></code></p>
+	<p><code class="server">&lt;&lt;&lt; 301 3<code class="newline">\r\n</code></code></p>
+
+	<p><code class="client">&gt;&gt;&gt; FND 3 fname=Mike lname=Mintz city=* state=* country=DE<code class="newline">\r\n</code></code></p>
+	<p><code class="server">&lt;&lt;&lt; FND 3 0 0<code class="newline">\r\n</code></code></p>
+
+	<p><code class="client">&gt;&gt;&gt; FND 9 fname=Mike lname=Mintz city=* state=* Country=US<code class="newline">\r\n</code></code></p>
+	<p><code class="server">
+		&lt;&lt;&lt; FND 9 1 3 fname=Mike lname=Mintz State=Alaska Country=US<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; FND 9 2 3 fname=Mike lname=Mintz State=South%20Dakota Country=US<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; FND 9 3 3 fname=Mike lname=Mintz State=Oklahoma Country=US<code class="newline">\r\n</code>
+	</code></p>
+
+<h3>SDC</h3>
+
+	<p><b>Note: This command has not been well tested. If you have done any research on this command, please <a href="../about.php#contact">let us know</a>!</b></p>
+
+	<p>After finding someone with <code>FND</code>, you can use the <code>SDC</code> command much like <code>SND</code>, above. The user specified with <code>SDC</code> will receive an e-mail saying <i>"&lt;your_friendlyname&gt; wants to talk to you!"</i>. <code>SDC</code> has a TrID and 8 parameters.</p>
+	<ul>
+		<li>The first parameter is the the incrementing number associated with the match.</li>
+		<li>The second, third, fourth, fifth and sixth parameters are "0x0409 MSMSGS WindowsMessenger X X"</li>
+		<li>The seventh argument is the friendly name you want to specify in the e-mail address they receive.</li>
+		<li>The eighth argument is the length of the payload to this command.</li>
+	</ul>
+
+	<p>For example, if I had just run the above search for Mike Mintz, and decided to contact the Mike Mintz in Alaska, I might send the following:</p>
+
+	<p><code class="client">
+		&gt;&gt;&gt; SDC 3 1 0x0409 MSMSGS WindowsMessenger X X Andrew%20Sayers 8<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; Hi Mike! <code class="other">(no newline)</code>
+	</code></p>
+
+	<!-- * What do you receive when you send an SDC? -->
+
+<h2>MSN Alerts<a name="not"></a></h2>
+
+	<p><b>Note: This command has not been well tested. If you have done any research on this command, please <a href="../about.php#contact">let us know</a>!</b></p>
+
+	<p>MSN Alerts use the <code>NOT</code> ("notification") command, which has one parameter - the length of the message body.</p>
+	<p>If you use the official client, you can register this service by clicking on the golden bell tab (under the msn "green buddy" tab).</p>
+	<p>This command hasn't been thoroughly researched, so the information in this section is fairly speculative. If you are interested in it, please <a href="../about.php#contact">let us know</a> what you find! Only two examples of this command has been observed.</p>
+
+	<p><code class="server">
+		&lt;&lt;&lt; NOT 586<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;NOTIFICATION ver="1" siteid="111100200" siteurl="http://calendar.msn.com" id="2"&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;TO pid="0x00060000:0x81ee5a43" name="jabber_test@hotmail.com" /&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;MSG pri="" id="2"&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;ACTION url=&#x200B;"/calendar/isapi.dll?request=action&amp;operation=modify&#x200B;&amp;objectID=2&#x200B;&amp;uicode1=modifyreminder&amp;locale=2052"/&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;SUBSCR url=&#x200B;"/calendar/isapi.dll?request=action&amp;operation=modify&#x200B;&amp;objectID=2&#x200B;&amp;uicode1=modifyreminder&amp;locale=2052"/&gt;&#x200B;&lt;CAT id="111100201" /&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;BODY lang="2052" icon="/En/img/calendar.png"&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;TEXT&gt;aaaaa (bbbbb) 2002偁十䁁月14�星期�21:45 - 22:45 &lt;/TEXT&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;/BODY&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;/MSG&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;/NOTIFICATION&gt;<code class="newline">\r\n</code><br />
+	</code></p>
+
+	<p><code class="server">
+		&lt;&lt;&lt; NOT 590<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;NOTIFICATION ver="1" siteid="111100200" siteurl="http://calendar.msn.com" id="1"&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;TO pid="0x00060000:0x81ee5a43" name="jabber_test@hotmail.com" /&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;MSG pri="" id="1"&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;ACTION url=&#x200B;"/calendar/isapi.dll?request=action&amp;operation=modify&#x200B;&amp;objectID=1&#x200B;&amp;uicode1=modifyreminder&amp;locale=2052"/&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;SUBSCR url=&#x200B;"/calendar/isapi.dll?request=action&amp;operation=modify&#x200B;&amp;objectID=1&#x200B;&amp;uicode1=modifyreminder&amp;locale=2052"/&gt;&#x200B;&lt;CAT id="111100201" /&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;BODY lang="2052" icon="/En/img/calendar.png"&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;TEXT&gt;goto club 7. 2002 21:15 - 22:15 &lt;/TEXT&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;/BODY&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;/MSG&gt;<code class="newline">\r\n</code><br />
+		&nbsp;&nbsp;&nbsp; &lt;/NOTIFICATION&gt;<code class="newline">\r\n</code><br />
+	</code></p>
+
+	<p>The body appears to be XML, though we're not sure whether it's actually parsed as XML, which commands are necessary, whether you can insert arbitrary extra fields, and so on. Our current theories about the various sections of the message are:</p>
+
+	<ul>
+	<li>The NOTIFICATION element specifies that this is a notification.
+		<ul>
+		<li>The "ver" attribute specifies the version of the notification standard being used.</li>
+		<li>The "siteurl" attribute is the base URL to be used with the relative URLs in nested elements.</li>
+		<li>The "id" attribute is an ID value which increases by one for every notification in the current session.</li>
+		</ul>
+	</li>
+	<li>The TO element specifies who the message is addressed to (i.e. you). The "name" attribute is your passport.</li>
+	<li>The MSG element contains a particular message. This might suggest that more (or less?) than one message can be sent in a single notification. The "id" attribute is the same as the id of the NOTIFICATION tag.</li>
+	<li>The ACTION and SUBSCR elements are identical, and give a URL (relative to the URL given in the NOTIFICATION element) to visit.</li>
+	<li>The CAT element might be some kind of categorisation?</li>
+	<li>The BODY element contains the body of the notification.
+		<ul>
+		<li>The "lang" attribute is a language code.</li>
+		<li>The "icon" attribute is an icon to display in the alert box.</li>
+		</ul>
+	</li>
+	<li>The TEXT element contains the text of the alert</li>
+	</ul>
+
+<h2>Mobile Paging (PAG)<a name="pag"></a></h2>
+
+	<p><b>Note: This command has not been well tested. If you have done any research on this command, please <a href="../about.php#contact">let us know</a>!</b></p>
+
+	<p>You can page someone on their <a href="http://mobile.msn.com">MSN Mobile</a> device with the <code>PAG</code> command. It is believed that you can receive an incoming message from an MSN Mobile device with the <code>IPG</code> command.</p>
+
+	<p>If someone on your forward list has an MSN Mobile device and have allowed you to send messages to them with it, their "MOB" will be set to "Y". The <code>PAG</code> command has a TrID and two arguments.</p>
+
+	<ul>
+		<li>The first argument is the passport of the user you want to send the message to.</li>
+		<li>The second argument is the length of the message body.</li>
+	</ul>
+
+	<p>The body of a PAG can be either <code>&lt;TEXT xml:space="preserve"&gt; . . . &lt;/TEXT&gt;</code> or <code>&lt;PHONE pri="1"&gt;&#x200B;&lt;LOC&gt;string&lt;/LOC&gt;&#x200B;&lt;NUM&gt;string&lt;/NUM&gt;&#x200B;&lt;/PHONE&gt;&lt;&#x200B;TEXT xml:space="preserve"&gt; . . . &lt;/TEXT&gt;</code>. The extra information in the second format is not yet understood.</p>
+	<p>If the command failed to send, the reply is an <code>800</code> error. If there is some other error (for example, you are not allowed to send <code>PAG</code>s, or your <code>PAG</code> is malformed), you get a 220 error. If the message was sent successfully, there is no reply.</p>
+	<p>A message sent with the PAG command must be no more than 113 characters long. It can include any characters valid in an XML document. That means that <code>&amp;</code> must be converted to <code>&amp;amp;</code>, characters with values greater than 127 or less than 32 must be converted to <code>&amp;#NN;</code>, etc.</p>
+
+	<p>The <code>IPG</code> command has never been observed in the wild, but analysis of the official client suggests that it is a normal payload command with a specified length.</p>
+
+
+</td>
+
+</tr>
+
+</table>
+
+<h1> </h1>
+
+<div align="center">
+<small>
+Copyright &copy;2002-2003 to <a href="http://www.mikemintz.com/">Mike Mintz</a>.
+</small>
+</div>
+
+<br />
+
+</body>
+
+</html>

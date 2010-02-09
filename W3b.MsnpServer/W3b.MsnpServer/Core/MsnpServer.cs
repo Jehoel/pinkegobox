@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Net.Sockets;
 
 namespace W3b.MsnpServer {
 	
@@ -37,9 +38,20 @@ namespace W3b.MsnpServer {
 			
 			lock( c ) {
 				
-				LogSC( c, cmd );
-				
-				c.Socket.Send( cmd.ToByteArray() );
+				try {
+					
+					LogSC( c, cmd );
+					
+					c.Socket.Send( cmd.ToByteArray() );
+					
+				} catch(SocketException sex) {
+					
+					LogSC(c, "Send SocketException: " + sex.Message, false );
+					
+				} catch(ObjectDisposedException dex) {
+					
+					LogSC(c, "Send ObjectDisposedException: " + dex.Message, false );
+				}
 			}
 		}
 		

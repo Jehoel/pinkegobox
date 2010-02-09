@@ -17,7 +17,7 @@ namespace W3b.MsnpServer.Protocol {
 			
 			// I *assume* the expected response is the same as CVR's
 			
-			
+			HandleCvr( server, c, cmd );
 		}
 		
 		public static void HandleCvr<TConnection>(MsnpServer<TConnection> server, TConnection c, Command cmd) where TConnection : ClientConnection {
@@ -32,7 +32,7 @@ namespace W3b.MsnpServer.Protocol {
 			// minVer   = minimum supported version for this protocol
 			
 			Dictionary<String,String[]> recommendedVersions = new Dictionary<String,String[]>() {
-				{ "Third", new String[] { "1.0.0000", "1.0.0000", "http://pathToPinkEgoBoxWebsite/"} }, // Third-party clients only
+				{ "Third", new String[] { "1.0.0000", "1.0.0000", "http://pinkegobox.codeplex.com/"} }, // Third-party clients only
 				{ "MSNP2", new String[] { "1.0.0863", "2.0.0085", "http://pathToDownloadMsgr20/" } },
 				{ "MSNP3", new String[] { "2.0.0085", "2.2.1053", "http://pathToDownloadMsgr22/" } },
 				{ "MSNP4", new String[] { "2.1.1047", "3.6.0025", "http://pathToDownloadMsgr36/" } },
@@ -57,6 +57,7 @@ namespace W3b.MsnpServer.Protocol {
 			String downloadUrl        = recommendedVersions[ protocolVersion ][2];
 			String infoUrl            = @"http://msnpiki.msnfanatic.com/index.php/Reference:ProtocolTable";
 			
+			// note how this responds with the same verb used in the query
 			Command response = new Command(cmd.Verb, cmd.TrId, recommendedVersion, recommendedVersion, minimumSuppVersion, downloadUrl, infoUrl );
 			server.Send( c, response );
 		}
@@ -64,6 +65,8 @@ namespace W3b.MsnpServer.Protocol {
 		public static void HandleInf<TConnection>(MsnpServer<TConnection> server, TConnection c, Command cmd) where TConnection : ClientConnection {
 			
 			// for the purposes of compatibility, just return 'MD5', though a spec-compliant implementation would return all the supported auth packages
+			
+			// but future auth packages aren't used until MSNP versions where INF is deprecated, like SSO and TWN
 			
 			Command response = new Command(Verb.Inf, cmd.TrId, "MD5");
 			server.Send( c, response );

@@ -1,0 +1,28 @@
+As the form of the MSNP server hasn't changed over the years, I could implement different protocol version handlers like so:
+
+class Msnp2Handler {
+
+protected virtual void HandleBlp() {
+
+}
+
+protected virtual void HandleSomeVolatileVerb() {
+}
+
+}
+
+class Msnp3Handler : Msnp2Handler {
+
+protected override void HandleSomeVolatileVerb() {
+
+}
+
+}
+
+...because inheritance is additive. Each handler would be responsible for calling each method though, so they'd all have their own giant switch blocks
+	but that shouldn't be a problem
+	it also solves the problem of obsolete methods being called
+
+meanwhile, the "infrastructure" would continue to be handled by my static *Services classes
+
+good job, methinks :)

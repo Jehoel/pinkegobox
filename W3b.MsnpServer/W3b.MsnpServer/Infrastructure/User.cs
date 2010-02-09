@@ -275,7 +275,7 @@ namespace W3b.MsnpServer {
 				return explicitEntry.Allowed;
 			} else {
 				
-				return GtcSetting;
+				return BlpSetting;
 			}
 		}
 		

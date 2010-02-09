@@ -17,9 +17,22 @@ namespace W3b.MsnpServer.Protocol {
 		public const String Out = "OUT";
 	}
 	
-	public class Msnp2SwitchboardProtocol : SwitchboardProtocol {
+	public class Msnp2SwitchboardProtocol : BaseSwitchboardProtocol {
 		
 		public Msnp2SwitchboardProtocol(SwitchboardServer server) : base("MSNP2", 2, server) {
+		}
+		
+		public override bool CompatibleWithProtocol(String name) {
+			// HACK: this whole method is a hack, but whatever
+			
+			switch(name.ToUpperInvariant()) {
+				case "MSNP2":
+				case "MSNP3":
+				case "MSNP4":
+					return true;
+				default:
+					return false;
+			}
 		}
 		
 		public override void HandleCommand(SwitchboardConnection c, Command cmd) {
@@ -43,39 +56,6 @@ namespace W3b.MsnpServer.Protocol {
 				default:
 					HandleUnrecognised(c, cmd);
 					break;
-			}
-			
-		}
-		
-		protected virtual void HandleUsr(SwitchboardConnection c, Command cmd) {
-			
-			// >>> USR TrID UserHandle AuthResponseInfo
-			// <<< USR TrID OK UserHandle FriendlyName
-			
-			// authenticate and ensure there's a matching session
-			
-			String userHandle = cmd.Params[0];
-			String keyToken   = cmd.Params[1];
-			
-			User user = User.GetUser( userHandle );
-			
-			SwitchboardSession session = Server.GetSessionByCreator( user, keyToken );
-			if( session == null ) {
-				
-				Command err = new Command(Error.AuthenticationFailed, cmd.TrId);
-				Server.Send( c, err );
-				
-			} else {
-				
-				c.User    = user;
-				c.Session = session;
-				session.Connections.Add( c );
-				
-				User thisUser = User.GetUser( userHandle );
-				
-				Command response = new Command(Verb.Usr, cmd.TrId, "OK", userHandle, thisUser.FriendlyName);
-				Server.Send( c, response );
-				
 			}
 			
 		}
@@ -106,58 +86,12 @@ namespace W3b.MsnpServer.Protocol {
 			User           caller  = c.User;
 			SwitchboardSession session = c.Session;
 			
-			recipient.NotificationServer.ASNotifyRng( caller, recipient, session );
+			SwitchboardInvitation invite = session.CreateInvitation( recipient );
+			
+			recipient.NotificationServer.ASNotifyRng( caller, recipient, invite );
 			
 			Command responseOk = new Command(Verb.Cal, cmd.TrId, "RINGING", session.Id.ToStringInvariant());
 			Server.Send( c, responseOk );
-			
-		}
-		
-		protected virtual void HandleAns(SwitchboardConnection c, Command cmd) {
-			
-			// >>> ANS TrID LocalUserHandle AuthResponseInfo SessionID
-			// <<< IRO TrID Participant# TotalParticipants UserHandle FriendlyName
-			// <<< ANS TrID OK
-			
-			// add this user to that session, assuming it authenticates
-			
-			String sessionKey = cmd.Params[1];
-			Int32 sessionId   = Int32.Parse( cmd.Params[2] );
-			
-			User user = User.GetUser( cmd.Params[0] );
-			
-			SwitchboardSession session = Server.GetSessionByIdAndKey( sessionId, sessionKey );
-			if( session == null || user == null ) {
-				
-				Command responseErr = new Command(Error.AuthenticationFailed, cmd.TrId);
-				Server.Send( c, responseErr );
-				
-			} else {
-				
-				int cnt = session.Connections.Count;
-				for(int i=0;i<session.Connections.Count;i++) {
-					
-					Command iro = new Command(Verb.Iro, cmd.TrId, (i+1).ToStringInvariant(), cnt.ToStringInvariant(), session.Connections[i].User.UserHandle, session.Connections[i].User.FriendlyName);
-					Server.Send( c, iro );
-				}
-				
-				c.User    = user;
-				c.Session = session;
-				
-				session.Connections.Add( c );
-				
-				Command respOk = new Command(Verb.Ans, cmd.TrId, "OK");
-				Server.Send( c, respOk );
-				
-				// When a new user joins a Switchboard session, the server sends the
-				// following command to all participating clients, including the client
-				// joining the session:
-				
-				// <<< JOI CalleeUserHandle CalleeUserFriendlyName
-				
-				Server.BroadcastCommand( session, new Command(Verb.Joi, -1, user.UserHandle, user.FriendlyName) );
-				
-			}
 			
 		}
 		
@@ -170,8 +104,10 @@ namespace W3b.MsnpServer.Protocol {
 				
 				c.Session.Connections.Remove( c ); // HACK: This isn't thread-safe
 				
+				Command bye = new Command(Verb.Bye, -1, c.User.UserHandle ); 
+				
 				if( c.Session.Connections.Count == 0 ) Server.EndSession( c.Session );
-				else                                   Server.BroadcastCommand( c.Session, cmd ); // TODO: er...?
+				else                                   Server.BroadcastCommand( c.Session, bye, c );
 				
 				c.Session = null;
 			}
@@ -197,7 +133,7 @@ namespace W3b.MsnpServer.Protocol {
 			// TODO: I'll need to convert MSGs or do some kind of special handling if there's any protocol-specific functionality
 			// <<< MSG UserHandle FriendlyName Length\r\nMessage
 			Command broadcastMsg = Command.CreateWithPayload(Verb.Msg, -1, message, c.User.UserHandle, c.User.FriendlyName);
-			bool succeeded = Server.BroadcastCommand( session, broadcastMsg );
+			bool succeeded = Server.BroadcastCommand( session, broadcastMsg, c );
 			
 			// TODO: I'll need to separate out ACK code because it is NOT as simple as this
 			

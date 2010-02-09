@@ -1,0 +1,24 @@
+Bugs and things not yet implemented in my implementation:
+============================================================
+
+* FND Verb
+* SND Verb
+	* I have documentation now
+* User status on add
+	* When adding a person (and that person adds them to their AL)
+* Note how all the UserProperties lists have a userHandle tied to a 'last seen' customName attribute
+	* Apparently I think I'm doing it wrong (again) and that there is *one* customName for a user on another user's userlists rather than one customName per list
+		* I don't think this requires changing anything though, it might be useful for later protocols. Just be sure to update all lists when the client says
+* MSG Bug
+	* Messages are sent to the sender as well, broadcast isn't implemented right
+
+CANTFIX:
+============================================================
+
+* Implementing MD5 Challenge without needing the plaintext password on the server
+	* I believe this is possible as it's part of HTTP
+	* I can think of how to implement if if the challenge string is identical to the hash salt used in the database
+		* But that makes it suspecible to replay attacks since the challenge remains the same
+	* Turns out this is auth system is called "CRAM-MD5"
+		* "Digest-MD5" is different
+	* Just use machine-key encryption

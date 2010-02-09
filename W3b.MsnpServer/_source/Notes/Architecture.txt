@@ -1,0 +1,36 @@
+Server subclasses asynchronously accept messages from clients and send out replies
+
+DispatchServer     DS
+NotificationServer NS
+SwitchboardServer  SB
+
+These servers, upon a client negociating a client protocol dialect, use a Protocol implementation that deals with the messages
+
+These implementations then can either call methods on a Service interface
+There are two sets of implementations:
+
+Proxy
+	Translates commands/responses to the 'live' messenger servers, thus the whole system becomes a proxy
+
+PinkEgoBox
+	My own 'lite' infrastructure implementation
+
+These interfaces will need to be defined after I get the full scope of MSNP2.
+The interfaces will represent the union of all messenger features supported through every version
+
+========================
+
+Question: what do I do about thread safety?
+
+========================
+
+Example session:
+
+configuration: pink ego box
+	client connects to DispatchServer, dispatch server responds with the list of protocol version implementations
+	NOTE: this requires that MSNP dialects all follow the same conceptual model and command syntax, if there are any incompatible differences then my system falls apart
+		example: potentially recent versions of MSNP (11+) that use SOAP and other servers and complicated auth systems
+	
+	server creates a new session for the connection and binds it to a protocol implementation
+	
+	...then what?

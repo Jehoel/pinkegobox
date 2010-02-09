@@ -30,9 +30,7 @@ namespace W3b.MsnpServer.Protocol {
 					HandleCvr(c, cmd);
 					break;
 				default:
-					
-					
-					
+					HandleUnrecognised(c, cmd);
 					break;
 			}
 			

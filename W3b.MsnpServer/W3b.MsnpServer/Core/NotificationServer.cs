@@ -33,7 +33,9 @@ namespace W3b.MsnpServer {
 		private NotificationServer() : base("NS", ConsoleColor.Green, 1864) {
 			
 			_protocols = new List<NotificationProtocol>() {
-				new Msnp2NotificationProtocol(this)
+				new Msnp2NotificationProtocol(this),
+				new Msnp3NotificationProtocol(this),
+				new Msnp4NotificationProtocol(this)
 			};
 			_protocols.Sort( (px, py) => py.Pref.CompareTo( px.Pref ) ); // descending sort order
 		}
@@ -113,16 +115,23 @@ namespace W3b.MsnpServer {
 			// Notify the client's (reverse list JOIN allow list)
 			// oh, and these users need to be online too
 			
-			if( !user.Status.IsOnline() ) return;
-			
 			foreach(User reverseAllowedUser in user.Properties.VirtualAllowedReverseList) {
 				
 				NotificationConnection c = GetConnectionForUser( reverseAllowedUser );
 				if( c != null && reverseAllowedUser.Status != Status.Fln ) { // the user is online, and a sanity check they aren't FLN
 					
-					c.Protocol.ASNotifyNln( c, user );
-				}
-			}
+					if( user.Status.AppearOnline() ) {
+						
+						c.Protocol.ASNotifyNln( c, user );
+						
+					} else {
+						
+						c.Protocol.ASNotifyFln( c, user );
+						
+					}//if
+					
+				}//if
+			}//foreach
 			
 		}
 		
@@ -132,14 +141,14 @@ namespace W3b.MsnpServer {
 			
 			// notify the user's contacts
 			
-			if( !user.Status.IsOnline() ) return;
+			if( !user.Status.AppearOnline() ) return;
 			
 			Command asyncRea = new Command(Verb.Rea, 0, "0", user.UserHandle, newName);
 			
 			foreach(User notifyThisUser in user.Properties.VirtualAllowedReverseList) {
 				
 				NotificationConnection usersC = GetConnectionForUser( notifyThisUser );
-				if( usersC != null && notifyThisUser.Status.IsOnline() ) {
+				if( usersC != null && notifyThisUser.Status != Status.Fln ) {
 					
 					usersC.Protocol.ASNotifyRea( usersC, user );
 				}
@@ -156,7 +165,8 @@ namespace W3b.MsnpServer {
 		/// <summary>Adds the <paramref name="target"/> user to <paramref name="listOwner"/>'s <paramref name="list"/> list, then sends out appropriate notifications if necessary.</summary>
 		public AddListResult AddToList(User listOwner, String listName, User target, String customName) {
 			
-			// TODO: Make all user properties mutator code thread-safe
+			lock( listOwner.Properties )
+			lock( target.Properties ) {
 			
 			switch(listName) {
 				case "FL":
@@ -177,9 +187,17 @@ namespace W3b.MsnpServer {
 					NotificationConnection targetC1 = GetConnectionForUser( target );
 					if( targetC1 != null && target.Status != Status.Fln ) {
 						
-						// hold on, is the GTC/BLP setting involved at this point?
 						targetC1.Protocol.ASNotifyAddRL( targetC1, rlEntry );
 					}
+					
+					if( target.Status.AppearOnline() && target.Properties.GetResultantAS( listOwner ) == AllowSetting.Allow ) {
+						// if listOwner is allowed to see target
+						
+						NotificationConnection listOwnerC = GetConnectionForUser( listOwner );
+						listOwnerC.Protocol.ASNotifyIln( listOwnerC, target );
+					}
+					
+					// TODO: If the added user is online, send ILN
 					
 					return AddListResult.Success;
 				
@@ -201,12 +219,12 @@ namespace W3b.MsnpServer {
 						listOwner.Properties.PermissList.Add( target, alEntry );
 						listOwner.Properties.Serial++;
 						
-						if( listOwner.Status.IsOnline() && target.Properties.ForwardList.ContainsKey( listOwner ) ) {
+						if( listOwner.Status.AppearOnline() && target.Properties.ForwardList.ContainsKey( listOwner ) ) {
 							
 							NotificationConnection targetC2 = GetConnectionForUser( target );
 							if( targetC2 != null && target.Status != Status.Fln ) {
 								
-								targetC2.Protocol.ASNotifyIln( targetC2, listOwner );
+								targetC2.Protocol.ASNotifyNln( targetC2, listOwner );
 							}
 						}
 						
@@ -232,7 +250,7 @@ namespace W3b.MsnpServer {
 						if( target.Properties.ForwardList.ContainsKey( listOwner ) ) {
 							
 							NotificationConnection c2 = GetConnectionForUser( target );
-							if( listOwner.Status.IsOnline() && c2 != null && target.Status != Status.Fln ) {
+							if( listOwner.Status.AppearOnline() && c2 != null && target.Status != Status.Fln ) {
 								
 								c2.Protocol.ASNotifyFln( c2, listOwner );
 							}
@@ -249,21 +267,81 @@ namespace W3b.MsnpServer {
 				
 			}//switch
 			
+			}//lock
 		}//AddToList
 		
-		public AddListResult RemoveFromList(User listOwner, String listName, User target) {
+		public RemoveListResult RemoveFromList(User listOwner, String listName, User target) {
+			
+			lock( listOwner.Properties )
+			lock( target.Properties ) {
 			
 			switch(listName) {
 				case "FL":
 					
-					NotificationConnection c = GetConnectionForUser( target );
-//					c.Protocol.ASNotifyRemRL( c,  listOwner, target );
+					if(!listOwner.Properties.ForwardList.Remove( target )) return RemoveListResult.UserNotInList;
+					listOwner.Properties.Serial++;
 					
-					break;
-			}
-			
-			throw new NotImplementedException();
-			
+					if( target.Properties.ReverseList.Remove( listOwner ) )
+						target.Properties.Serial++;
+					
+					NotificationConnection targetC1 = GetConnectionForUser( target );
+					if( targetC1 != null && target.Status != Status.Fln ) {
+						
+						// hold on, is the GTC/BLP setting involved at this point?
+						targetC1.Protocol.ASNotifyRemRL( targetC1, listOwner.UserHandle );
+					}
+					
+					return RemoveListResult.Success;
+					
+				case "AL":
+					
+					UserPermissionListEntry entryAl;
+					if( !listOwner.Properties.PermissList.TryGetValue( target, out entryAl ) ) return RemoveListResult.UserNotInList;
+					if( entryAl.Allowed == AllowSetting.Block ) return RemoveListResult.UserNotInList;
+					
+					listOwner.Properties.PermissList.Remove( target );
+					listOwner.Properties.Serial++;
+					
+					if( listOwner.Status.AppearOnline() && target.Properties.ForwardList.ContainsKey( listOwner ) ) {
+						
+						NotificationConnection targetC2 = GetConnectionForUser( target );
+						if( targetC2 != null && target.Status != Status.Fln ) {
+							
+							// BLP/GTC is involved here too; a user might still be allowed to see status, even if not on the AL
+							targetC2.Protocol.ASNotifyFln( targetC2, listOwner );
+						}
+					}
+					
+					return RemoveListResult.Success;
+					
+				case "BL":
+					
+					UserPermissionListEntry entryBl;
+					if( !listOwner.Properties.PermissList.TryGetValue( target, out entryBl ) ) return RemoveListResult.UserNotInList;
+					if( entryBl.Allowed == AllowSetting.Allow ) return RemoveListResult.UserNotInList;
+					
+					listOwner.Properties.PermissList.Remove( target );
+					listOwner.Properties.Serial++;
+					
+					if( listOwner.Status.AppearOnline() && target.Properties.ForwardList.ContainsKey( listOwner ) ) {
+						
+						NotificationConnection targetC2 = GetConnectionForUser( target );
+						if( targetC2 != null && target.Status != Status.Fln ) {
+							
+							// BLP/GTC is involved here too; a user might still be allowed to see status, even if not on the AL
+							targetC2.Protocol.ASNotifyNln( targetC2, listOwner );
+						}
+					}
+					
+					return RemoveListResult.Success;
+					
+				case "RL":
+					return RemoveListResult.CannotRemoveFromRL;
+				default:
+					return RemoveListResult.UnknownList;
+				
+			}//switch
+			}//lock
 		}
 		
 		public void ASNotifyNln(User nlnUser, User recipient) {
@@ -272,13 +350,13 @@ namespace W3b.MsnpServer {
 			if( connection != null ) connection.Protocol.ASNotifyNln( connection,  nlnUser );
 		}
 		
-		public void ASNotifyRng(User caller, User recipient, SwitchboardSession session) {
+		public void ASNotifyRng(User caller, User recipient, SwitchboardInvitation invite) {
 			
 			// should ASNotifyRng be using UserListEntry? Why can't it use .FriendlyName, why must it use .CustomName, which must be recalled from somewhere?
 			UserListEntry callerEntry = new UserListEntry( caller, caller.FriendlyName );
 			
 			NotificationConnection connection = GetConnectionForUser( recipient );
-			if( connection != null ) connection.Protocol.ASNotifyRng( callerEntry, connection, session );
+			if( connection != null ) connection.Protocol.ASNotifyRng( callerEntry, connection, invite );
 		}
 		
 		public void ASNotifyAddRL(User adder, User recipient) {
@@ -305,6 +383,7 @@ namespace W3b.MsnpServer {
 	public enum RemoveListResult {
 		Success,
 		CannotRemoveFromRL,
+		UserNotInList,
 		UnknownList
 	}
 	

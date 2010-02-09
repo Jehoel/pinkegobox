@@ -35,7 +35,9 @@ namespace W3b.MsnpServer {
 			
 			_protocols = new List<DispatchProtocol>() {
 				new Cvr0DispatchProtocol(this),
-				new Msnp2DispatchProtocol(this)
+				new Msnp2DispatchProtocol(this),
+				new Msnp3DispatchProtocol(this),
+				new Msnp4DispatchProtocol(this)
 			};
 			_protocols.Sort( (px, py) => py.Pref.CompareTo( px.Pref ) ); // descending sort order
 		}

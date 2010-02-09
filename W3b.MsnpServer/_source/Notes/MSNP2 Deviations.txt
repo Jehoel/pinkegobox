@@ -1,0 +1,88 @@
+====== Draft Spec Violations
+
+DS: XFR
+
+	MSN Messenger Service 1.0 client requires additional parameter "0" at the end of an XFR
+
+SB: USR
+	The draft requires that the client return with the token of the session that was provisioned
+	but the client doesn't
+		I think this was because I wasn't including the 'CKI' bit in the XFR response
+
+NS: XFR
+	The response is only meant to give a hostname, the client is meant to connect on port 1863, there is no provision in the spec for port numbers.
+	Yet when I specify a port it uses that. I'm not complaining, but it should be noted for anyone implementing an MSNP2 client against my sever.
+
+====== Undocumented Commands:
+
+NS: CVR trId <langId> <os> <osVersion> <processor> <clientName> <cliVersion>
+	
+	<langId> is in the form "0x0409" (for 1033)
+	
+	Sent immediately after the CHG, the CHG ends with a number equal to the length of this message, which makes me think it's a payload
+	That number is a length indicator (because I got the same message but with a longer trId, so it matches)
+	I'll just ignore it for now
+
+DS: CVQ trId <langId> <os> <osVersion> <processor> <clientName> <cliVersion>
+	
+	Sent after a CVR0 response to VER, seemingly identical to CVR. MSNPWiki has further details. I should organise MSNPWiki further, methinks.
+
+NS: FND trId fname=<firstName> lname=<lastName> city=* state=* country=*
+	
+	Sent after using the "Find user" feature. I don't know what kind of response is expected
+
+NS: URL trId <service> <optionalParameter>
+	
+	<service> =
+		COMPOSE, "Send Mail"
+			COMPOSE can have an optional extra parameter: the email address to send the email to
+		INBOX, "Inbox"
+		
+NS: SND	trId <targetUserEmail> 0x0809 MSMSGS
+	
+	Send when told to send an invite email to a just-added user to the list
+		0x809 is 2057; is the LCID for the United Kingdom (or maybe Great Britain)
+		This is probably documented on MSNPWiki. Btw note this was sent from Msgr2.0 in MSNP3 mode.
+
+====== Undefined Server Responses
+
+DS / NS: What error to send in case of bad password
+There also other cases where I know I should send an error, but not sure which...
+
+====== Odd Behaviour
+
+DS: SYN trId <serial>
+	
+	For some reason both official and unofficial clients (Gaim 0.6) attempt to SYN with the dispatch server
+		...contrary to the IETF draft spec
+	This requires further investigation, I might be doing something wrong.
+
+DS: SNP2 SVR0
+	
+	This mysterious command was sent whilst I was running into problems with my initial XFR implementation
+
+Client:
+	The 2.0 client periodically checks for a "links.txt" file in the same directory as the executable
+
+
+========================
+Changes seen in MSNP3 and later
+
+How do I implement unread email notifications and new message notifications?
+	That's in the NOT async command, I think?
+
+MSNP4:
+	URL trId MOBILE
+		Set when changing pager address and clicking "Go to MSN Mobile..." button
+	URL trId N2PACCOUNT 0x0409
+		Set when clicking "Go to Net2Phone..." button to access the N2P Accounter Center
+	URL trId PROFILE 0x0409
+		Clicking "Edit Profile..."
+	URL trId PERSON 0x0409
+		Clicking "Member Services..."
+	
+	PRP trId <type> <number>
+		<type>   = PHH | PHW | PHM
+		<number> = URL-encoded phone number
+
+MSNP4

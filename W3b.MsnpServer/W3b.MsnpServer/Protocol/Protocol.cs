@@ -63,10 +63,10 @@ namespace W3b.MsnpServer.Protocol {
 		public abstract void ASNotifyIln(NotificationConnection recipient, User ilnUser);
 		public abstract void ASNotifyFln(NotificationConnection recipient, User flnUser);
 		
-		public abstract void ASNotifyRng(UserListEntry caller, NotificationConnection recipient, SwitchboardSession session);
+		public abstract void ASNotifyRng(UserListEntry caller, NotificationConnection recipient, SwitchboardInvitation invitation);
 		
 		public abstract void ASNotifyAddRL(NotificationConnection recipient, UserListEntry newRLEntry);
-		public abstract void ASNotifyRemRL(NotificationConnection recipient, UserListEntry removedRLEntry);
+		public abstract void ASNotifyRemRL(NotificationConnection recipient, String removedRLEntryUserHandle);
 		
 		public abstract void ASNotifyRea(NotificationConnection recipient, User updatedUser);
 		
@@ -88,6 +88,10 @@ namespace W3b.MsnpServer.Protocol {
 			
 			Command response = new Command(Error.SyntaxError, cmd.TrId);
 			Server.Send( c, response );
+		}
+		
+		public virtual bool CompatibleWithProtocol(String name) {
+			return Name.Equals( name, StringComparison.OrdinalIgnoreCase );
 		}
 		
 	}
